@@ -1,10 +1,12 @@
 # Usar la imagen oficial de Python 3.12.5 como base
 FROM python:3.12.5-slim
 
-# Instalar dependencias del sistema necesarias para compilación (ejemplo: para psycopg2 o cualquier librería C)
+# Instalar dependencias del sistema necesarias para compilación (incluyendo MySQL y otras dependencias comunes)
 RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
+    libmysqlclient-dev \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Establecer el directorio de trabajo en el contenedor
