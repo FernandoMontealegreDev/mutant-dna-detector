@@ -1,4 +1,6 @@
 #!/bin/bash
+# Activate virtual environment
+source /opt/venv/bin/activate
 
 # Function to check environment variables
 check_env_vars() {
