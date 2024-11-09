@@ -24,7 +24,7 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the start script and make it executable
-COPY start.sh /app/
+COPY /app/start.sh /app/
 RUN chmod +x /app/start.sh
 
 # Copy the rest of the project files into the container
