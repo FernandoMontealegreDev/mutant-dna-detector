@@ -1,11 +1,11 @@
 # Usar la imagen oficial de Python 3.12.5 como base
 FROM python:3.12.5-slim
 
-# Instalar dependencias del sistema necesarias para compilación (incluyendo MySQL y otras dependencias comunes)
+# Actualizar el contenedor y agregar las dependencias necesarias para la compilación
 RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
-    libmysqlclient-dev \
+    libmariadb-dev \
     pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
@@ -28,6 +28,4 @@ RUN alembic upgrade head
 EXPOSE 8000
 
 # Comando para ejecutar la aplicación con Uvicorn en producción
-# Usamos "uvicorn" para iniciar FastAPI, con "host=0.0.0.0" para que sea accesible desde fuera del contenedor.
-# En producción no usamos "--reload" para mejor rendimiento
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
