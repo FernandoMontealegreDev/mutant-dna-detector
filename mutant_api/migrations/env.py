@@ -3,7 +3,7 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
 from dotenv import load_dotenv
-import pymysql
+
 
 # Load environment variables from .env file if it exists
 load_dotenv()
@@ -21,7 +21,7 @@ if config.config_file_name is not None:
 target_metadata = None  # This can be set to your model's Base.metadata
 
 # Construct the database URL from environment variables
-db_url = f"mysql+pymysql://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASSWORD')}@{os.environ.get('DB_HOST')}:{os.environ.get('DB_PORT', '26115')}/{os.environ.get('DB_NAME')}"
+db_url = f"mysql://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASSWORD')}@{os.environ.get('DB_HOST')}:{os.environ.get('DB_PORT', '26115')}/{os.environ.get('DB_NAME')}"
 
 def run_migrations_offline() -> None:
     """
