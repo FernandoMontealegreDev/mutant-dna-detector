@@ -3,9 +3,12 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
+import pymysql
 
 # Load environment variables from a .env file
 load_dotenv()
+
+pymysql.install_as_MySQLdb()
 
 # Database connection configuration for MySQL
 DB_USER = os.getenv("DB_USER")  # Database username
@@ -15,7 +18,7 @@ DB_PORT = os.getenv("DB_PORT")  # Database port number
 DB_NAME = os.getenv("DB_NAME")  # Database name
 
 # Form the SQLAlchemy connection URL
-SQLALCHEMY_DATABASE_URL = f"mysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}?ssl-mode=REQUIRED"
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}?ssl-mode=REQUIRED"
 
 # Create a SQLAlchemy engine for connecting to the database
 engine = create_engine(
