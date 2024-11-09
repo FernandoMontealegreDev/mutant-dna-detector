@@ -12,10 +12,14 @@ RUN apt-get update && apt-get install -y \
 # Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
 
+# Crear un entorno virtual y activarlo
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
 # Copiar el archivo de requisitos al contenedor
 COPY requirements.txt /app/
 
-# Instalar las dependencias necesarias
+# Instalar las dependencias necesarias dentro del entorno virtual
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copiar el resto de los archivos del proyecto al contenedor
