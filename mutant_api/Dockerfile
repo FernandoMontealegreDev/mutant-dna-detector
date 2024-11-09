@@ -1,35 +1,37 @@
-# Usar la imagen oficial de Python 3.12.5 como base
+# Use the official Python 3.12.5 image as base
 FROM python:3.12.5-slim
 
-# Actualizar el contenedor y agregar las dependencias necesarias para la compilación
+# Update the container and install necessary dependencies for building
 RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
     libmariadb-dev \
     pkg-config \
+    default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
-# Establecer el directorio de trabajo en el contenedor
+# Set the working directory inside the container
 WORKDIR /app
 
-# Crear un entorno virtual y activarlo
+# Create a virtual environment and activate it
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Copiar el archivo de requisitos al contenedor
+# Copy the requirements file into the container
 COPY requirements.txt /app/
 
-# Instalar las dependencias necesarias dentro del entorno virtual
+# Install the necessary dependencies inside the virtual environment
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar el resto de los archivos del proyecto al contenedor
+# Copy the start script and make it executable
+COPY start.sh /app/
+RUN chmod +x /app/start.sh
+
+# Copy the rest of the project files into the container
 COPY . /app/
 
-# Ejecutar las migraciones de Alembic (asegúrate de que Alembic esté configurado correctamente)
-RUN alembic upgrade head
-
-# Exponer el puerto en el que se ejecutará la aplicación (FastAPI por defecto usa el puerto 8000)
+# Expose the port where the application will run
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación con Uvicorn en producción
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Use the start script as the command
+CMD ["/app/start.sh"]
