@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 # Load environment variables from a .env file
 load_dotenv()
 
-pymysql.install_as_MySQLdb()
-
 # Database connection configuration for MySQL
 DB_USER = os.environ.get("DB_USER")  # Database username
 DB_PASSWORD = os.environ.get("DB_PASSWORD")  # Database password

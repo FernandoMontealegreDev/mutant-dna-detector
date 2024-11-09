@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 # Load environment variables from .env file if it exists
 load_dotenv()
 
-pymysql.install_as_MySQLdb()
+ 
 
 # Alembic Config object, access values within the .ini file
 config = context.config
