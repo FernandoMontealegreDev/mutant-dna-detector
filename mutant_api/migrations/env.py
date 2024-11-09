@@ -18,7 +18,7 @@ if config.config_file_name is not None:
 target_metadata = None  # This can be set to your model's Base.metadata
 
 # Construct the database URL from environment variables
-db_url = f"mysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+db_url = f"mysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}?ssl-mode=REQUIRED"
 
 def run_migrations_offline() -> None:
     """
