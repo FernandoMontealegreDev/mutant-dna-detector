@@ -11,11 +11,11 @@ load_dotenv()
 pymysql.install_as_MySQLdb()
 
 # Database connection configuration for MySQL
-DB_USER = os.getenv("DB_USER")  # Database username
-DB_PASSWORD = os.getenv("DB_PASSWORD")  # Database password
-DB_HOST = os.getenv("DB_HOST")  # Database host address
-DB_PORT = os.getenv("DB_PORT")  # Database port number
-DB_NAME = os.getenv("DB_NAME")  # Database name
+DB_USER = os.environ.get("DB_USER")  # Database username
+DB_PASSWORD = os.environ.get("DB_PASSWORD")  # Database password
+DB_HOST = os.environ.get("DB_HOST")  # Database host address
+DB_PORT = os.environ.get("DB_PORT")  # Database port number
+DB_NAME = os.environ.get("DB_NAME")  # Database name
 
 # Form the SQLAlchemy connection URL
 SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
